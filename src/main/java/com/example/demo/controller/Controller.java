@@ -4,7 +4,6 @@ import com.example.demo.command.Command;
 import com.example.demo.command.CommandType;
 import com.example.demo.exception.CommandException;
 import com.example.demo.exception.ServiceException;
-import com.example.demo.pool.ConnectionPool;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,28 +38,18 @@ public class Controller extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing command parameter");
             return;
         }
-
         Command command = CommandType.define(commandStr);
         if (command == null) {
             logger.error("No command defined for: {}", commandStr);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid command");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid command parameter");
             return;
         }
-
-        String page;
         try {
-            page = command.execute(request);
-            logger.debug("Forwarding to page: {}", page);
+            String page = command.execute(request);
             request.getRequestDispatcher(page).forward(request, response);
         } catch (CommandException | ServiceException e) {
-            logger.error("Exception during command execution: {}", e.getMessage());
-            throw new ServletException(e);
+            logger.error("Command execution failed", e);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Command execution failed");
         }
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        ConnectionPool.getInstance().destroyPool();
     }
 }

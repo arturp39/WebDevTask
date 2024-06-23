@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RegisterCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private final static Logger logger = LogManager.getLogger();
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
@@ -19,17 +19,17 @@ public class RegisterCommand implements Command {
         String pass = request.getParameter("pass");
         String page;
         try {
-            logger.debug("Attempting to register user: {}", login);
+            logger.debug("Attempting to register user "+ login);
             if (userService.addUser(login, pass)) {
-                logger.debug("User registered successfully: {}", login);
+                logger.debug("User" + login + " registered successfully");
                 page = "index.jsp";
             } else {
-                request.setAttribute("register_msg", "Registration failed. Try again.");
-                logger.debug("Registration failed for user: {}", login);
+                request.setAttribute("register_msg", "Registration failed");
                 page = "pages/register.jsp";
+                logger.debug("Registration failed for user " + login);
             }
         } catch (ServiceException e) {
-            logger.error("ServiceException during registration: {}", e.getMessage());
+            logger.error("ServiceException during registration", e);
             throw new CommandException("Failed to add user", e);
         }
         return page;

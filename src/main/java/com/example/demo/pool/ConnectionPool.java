@@ -94,7 +94,6 @@ public class ConnectionPool {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
-                // Log the exception
                 e.printStackTrace();
             }
         }

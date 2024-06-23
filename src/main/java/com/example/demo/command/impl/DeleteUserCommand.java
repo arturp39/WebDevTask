@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DeleteUserCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(DeleteUserCommand.class);
+    private final static Logger logger = LogManager.getLogger();
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override

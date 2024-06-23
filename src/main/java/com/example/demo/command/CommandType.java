@@ -8,11 +8,13 @@ public enum CommandType {
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
     DEFAULT(new DefaultCommand()),
-    ADD_IMAGE(new AddImageCommand()),
-    DELETE_IMAGE(new DeleteImageCommand()),
-    LIST_IMAGES(new ListImagesCommand()),
-    CHANGE_IMAGE_NAME(new ChangeImageNameCommand())/*,
-    UPDATE_USER(new UpdateUserCommand())*/;
+    ADD_TASK(new AddTaskCommand()),
+    DELETE_TASK(new DeleteTaskCommand()),
+    LIST_TASKS(new ListTasksCommand()),
+    UPDATE_TASK_TITLE(new UpdateTaskTitleCommand()),
+    UPDATE_TASK_DESCRIPTION(new UpdateTaskDescriptionCommand()),
+    UPDATE_TASK_DUE_DATE(new UpdateTaskDueDateCommand()),
+    UPDATE_TASK_STATUS(new UpdateTaskStatusCommand());
 
     Command command;
 
@@ -24,7 +26,7 @@ public enum CommandType {
         try {
             return CommandType.valueOf(commandStr.toUpperCase()).command;
         } catch (IllegalArgumentException e) {
-            return null; // or a default command
+            return null;
         }
     }
 }

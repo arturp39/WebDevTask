@@ -14,7 +14,7 @@
     <br/>
     Password: <input type="password" name="pass" value="">
     <br/>
-    <input type="submit" name="sub" value="Push"/>
+    <input type="submit" name="sub" value="Submit"/>
     <br/>
     ${login_msg}
 </form>
