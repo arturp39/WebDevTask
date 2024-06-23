@@ -16,7 +16,7 @@ public enum CommandType {
     UPDATE_TASK_DUE_DATE(new UpdateTaskDueDateCommand()),
     UPDATE_TASK_STATUS(new UpdateTaskStatusCommand());
 
-    Command command;
+    final Command command;
 
     CommandType(Command command) {
         this.command = command;
