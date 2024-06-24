@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.user;
 
 import com.example.demo.command.Command;
 import com.example.demo.exception.CommandException;
@@ -10,28 +10,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DeleteUserCommand implements Command {
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(DeleteUserCommand.class);
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-        String page;
         try {
             logger.debug("Attempting to delete user: {}", login);
             if (userService.deleteUser(login, pass)) {
                 logger.debug("User deleted successfully: {}", login);
-                page = "index.jsp";
+                return "/index.jsp"; // Redirect to index page
             } else {
                 request.setAttribute("delete_msg", "Deletion failed. Try again.");
                 logger.debug("Deletion failed for user: {}", login);
-                page = "pages/delete_user.jsp";
+                return "/pages/delete_user.jsp"; // Forward to delete user page
             }
         } catch (ServiceException e) {
             logger.error("ServiceException during user deletion: {}", e.getMessage());
             throw new CommandException("Failed to delete user", e);
         }
-        return page;
     }
 }

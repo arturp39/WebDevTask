@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.user;
 
 import com.example.demo.command.Command;
 import com.example.demo.exception.CommandException;
@@ -10,28 +10,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RegisterCommand implements Command {
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(RegisterCommand.class);
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter("login");
         String pass = request.getParameter("pass");
-        String page;
         try {
-            logger.debug("Attempting to register user "+ login);
+            logger.debug("Attempting to register user: {}", login);
             if (userService.addUser(login, pass)) {
-                logger.debug("User" + login + " registered successfully");
-                page = "index.jsp";
+                logger.debug("User {} registered successfully", login);
+                return "/index.jsp"; // Redirect to login page
             } else {
                 request.setAttribute("register_msg", "Registration failed");
-                page = "pages/register.jsp";
-                logger.debug("Registration failed for user " + login);
+                logger.debug("Registration failed for user: {}", login);
+                return "/pages/register.jsp"; // Forward to register page
             }
         } catch (ServiceException e) {
             logger.error("ServiceException during registration", e);
             throw new CommandException("Failed to add user", e);
         }
-        return page;
     }
 }

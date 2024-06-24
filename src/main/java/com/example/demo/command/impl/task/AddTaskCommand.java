@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.task;
 
 import com.example.demo.command.Command;
 import com.example.demo.entity.Task;
@@ -23,7 +23,7 @@ public class AddTaskCommand implements Command {
         String description = request.getParameter("description");
         String dueDateStr = request.getParameter("due_date");
         String statusStr = request.getParameter("status");
-        String page;
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date dueDate;
         try {
@@ -44,17 +44,16 @@ public class AddTaskCommand implements Command {
         TaskService taskService = TaskServiceImpl.getInstance();
         try {
             if (taskService.addTask(task)) {
-                page = "pages/main.jsp";
                 logger.info("Task " + task.getTitle() + " created successfully");
+                return "/controller?command=list_tasks"; // Redirect to list tasks
             } else {
                 request.setAttribute("addTask_msg", "Failed to add task");
                 logger.error("Error adding task");
-                page = "pages/add_task.jsp";
+                return "/pages/add_task.jsp"; // Forward to add task page
             }
         } catch (ServiceException e) {
             logger.error("Error adding task", e);
             throw new CommandException("Failed to add task", e);
         }
-        return page;
     }
 }

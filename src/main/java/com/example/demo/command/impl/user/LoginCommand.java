@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.user;
 
 import com.example.demo.command.Command;
 import com.example.demo.exception.CommandException;
@@ -11,29 +11,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LoginCommand implements Command {
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(LoginCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String login = request.getParameter("login");
         String password = request.getParameter("pass");
         UserService userService = UserServiceImpl.getInstance();
-        String page;
         HttpSession session = request.getSession();
         try {
             if (userService.authenticate(login, password)) {
                 session.setAttribute("user_name", login);
-                page = "pages/main.jsp";
                 logger.debug("Login is successful");
+                return "/pages/main.jsp"; // Redirect to main page
             } else {
-                request.setAttribute("login_msg", "incorrect login or pass");
-                page = "index.jsp";
+                request.setAttribute("login_msg", "Incorrect login or password");
+                return "/index.jsp"; // Forward to login page
             }
-            session.setAttribute("current_page", page);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-
-        return page;
     }
 }

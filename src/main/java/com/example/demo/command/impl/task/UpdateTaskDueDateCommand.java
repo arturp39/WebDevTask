@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.task;
 
 import com.example.demo.command.Command;
 import com.example.demo.exception.CommandException;
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UpdateTaskDueDateCommand implements Command {
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(UpdateTaskDueDateCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -37,12 +37,10 @@ public class UpdateTaskDueDateCommand implements Command {
         try {
             taskService.updateTaskDueDate(taskId, sqlDueDate);
             logger.debug("Deadline date updated");
-
+            return "/controller?command=list_tasks"; // Redirect to list tasks
         } catch (ServiceException e) {
             logger.error("Failed to update task due date", e);
             throw new CommandException("Failed to update task due date", e);
         }
-
-        return "/controller?command=list_tasks";
     }
 }

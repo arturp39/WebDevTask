@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.user;
 
 import com.example.demo.command.Command;
 import jakarta.servlet.http.HttpServletRequest;

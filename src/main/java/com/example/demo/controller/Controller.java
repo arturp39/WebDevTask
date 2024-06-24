@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/controller", "*.do"})
+@WebServlet(name = "Controller", urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(Controller.class);
 
@@ -38,18 +38,24 @@ public class Controller extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing command parameter");
             return;
         }
+
         Command command = CommandType.define(commandStr);
         if (command == null) {
             logger.error("No command defined for: {}", commandStr);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid command parameter");
             return;
         }
+
         try {
             String page = command.execute(request);
-            request.getRequestDispatcher(page).forward(request, response);
+            if ("POST".equalsIgnoreCase(request.getMethod())) {
+                response.sendRedirect(request.getContextPath() + page);
+            } else {
+                request.getRequestDispatcher(page).forward(request, response);
+            }
         } catch (CommandException | ServiceException e) {
             logger.error("Command execution failed", e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Command execution failed");
+            throw new ServletException("Command execution failed", e);
         }
     }
 }

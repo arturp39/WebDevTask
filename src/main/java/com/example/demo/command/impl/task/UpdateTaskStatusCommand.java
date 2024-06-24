@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command.impl.task;
 
 import com.example.demo.command.Command;
 import com.example.demo.entity.Task;
@@ -34,11 +34,10 @@ public class UpdateTaskStatusCommand implements Command {
         try {
             taskService.updateTaskStatus(taskId, status);
             logger.debug("Task status updated");
+            return "/controller?command=list_tasks"; // Redirect to list tasks
         } catch (ServiceException e) {
             logger.error("Failed to update task status", e);
             throw new CommandException("Failed to update task status", e);
         }
-
-        return "/controller?command=list_tasks";
     }
 }

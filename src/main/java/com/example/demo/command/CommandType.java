@@ -1,6 +1,7 @@
 package com.example.demo.command;
 
-import com.example.demo.command.impl.*;
+import com.example.demo.command.impl.task.*;
+import com.example.demo.command.impl.user.*;
 
 public enum CommandType {
     REGISTER(new RegisterCommand()),
