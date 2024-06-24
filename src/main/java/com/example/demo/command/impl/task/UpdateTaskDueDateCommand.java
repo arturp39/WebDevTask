@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UpdateTaskDueDateCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(UpdateTaskDueDateCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -37,7 +37,7 @@ public class UpdateTaskDueDateCommand implements Command {
         try {
             taskService.updateTaskDueDate(taskId, sqlDueDate);
             logger.debug("Deadline date updated");
-            return "/controller?command=list_tasks"; // Redirect to list tasks
+            return "/controller?command=list_tasks";
         } catch (ServiceException e) {
             logger.error("Failed to update task due date", e);
             throw new CommandException("Failed to update task due date", e);

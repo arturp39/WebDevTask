@@ -4,6 +4,7 @@ import com.example.demo.command.Command;
 import com.example.demo.command.CommandType;
 import com.example.demo.exception.CommandException;
 import com.example.demo.exception.ServiceException;
+import com.example.demo.pool.ConnectionPool;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -48,8 +49,8 @@ public class Controller extends HttpServlet {
 
         try {
             String page = command.execute(request);
-            if ("POST".equalsIgnoreCase(request.getMethod())) {
-                response.sendRedirect(request.getContextPath() + page);
+            if (page.startsWith("redirect:")) {
+                response.sendRedirect(request.getContextPath() + page.substring(9));
             } else {
                 request.getRequestDispatcher(page).forward(request, response);
             }
@@ -57,5 +58,11 @@ public class Controller extends HttpServlet {
             logger.error("Command execution failed", e);
             throw new ServletException("Command execution failed", e);
         }
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().destroyPool();
+        ConnectionPool.getInstance().deregisterDrivers();
     }
 }

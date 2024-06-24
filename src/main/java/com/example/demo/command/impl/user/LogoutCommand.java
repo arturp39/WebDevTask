@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LogoutCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(LogoutCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -16,6 +16,6 @@ public class LogoutCommand implements Command {
             session.invalidate();
             logger.debug("User logged out successfully");
         }
-        return "/index.jsp"; // Redirect to login page
+        return "/index.jsp";
     }
 }

@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddTaskCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(AddTaskCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -45,11 +45,11 @@ public class AddTaskCommand implements Command {
         try {
             if (taskService.addTask(task)) {
                 logger.info("Task " + task.getTitle() + " created successfully");
-                return "/controller?command=list_tasks"; // Redirect to list tasks
+                return "/controller?command=list_tasks";
             } else {
                 request.setAttribute("addTask_msg", "Failed to add task");
                 logger.error("Error adding task");
-                return "/pages/add_task.jsp"; // Forward to add task page
+                return "/pages/add_task.jsp";
             }
         } catch (ServiceException e) {
             logger.error("Error adding task", e);

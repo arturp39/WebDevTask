@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DeleteTaskCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(DeleteTaskCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -24,7 +24,7 @@ public class DeleteTaskCommand implements Command {
             boolean deleted = taskService.deleteTask(taskId);
             if (deleted) {
                 logger.info("Task deleted successfully: " + taskId);
-                return "/controller?command=list_tasks"; // Redirect to list tasks
+                return "/controller?command=list_tasks";
             } else {
                 throw new CommandException("Failed to delete task");
             }

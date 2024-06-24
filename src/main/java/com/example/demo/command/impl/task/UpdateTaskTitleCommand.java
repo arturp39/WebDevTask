@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class UpdateTaskTitleCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(UpdateTaskTitleCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -23,7 +23,7 @@ public class UpdateTaskTitleCommand implements Command {
         try {
             taskService.updateTaskTitle(taskId, title);
             logger.debug("Task title updated");
-            return "/controller?command=list_tasks"; // Redirect to list tasks
+            return "/controller?command=list_tasks";
         } catch (ServiceException e) {
             logger.error("Failed to update task title", e);
             throw new CommandException("Failed to update task title", e);

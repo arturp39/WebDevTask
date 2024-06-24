@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LoginCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(LoginCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -23,10 +23,10 @@ public class LoginCommand implements Command {
             if (userService.authenticate(login, password)) {
                 session.setAttribute("user_name", login);
                 logger.debug("Login is successful");
-                return "/pages/main.jsp"; // Redirect to main page
+                return "/pages/main.jsp";
             } else {
                 request.setAttribute("login_msg", "Incorrect login or password");
-                return "/index.jsp"; // Forward to login page
+                return "/index.jsp";
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

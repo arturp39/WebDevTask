@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class UpdateTaskStatusCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(UpdateTaskStatusCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -34,7 +34,7 @@ public class UpdateTaskStatusCommand implements Command {
         try {
             taskService.updateTaskStatus(taskId, status);
             logger.debug("Task status updated");
-            return "/controller?command=list_tasks"; // Redirect to list tasks
+            return "/controller?command=list_tasks";
         } catch (ServiceException e) {
             logger.error("Failed to update task status", e);
             throw new CommandException("Failed to update task status", e);

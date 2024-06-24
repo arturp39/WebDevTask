@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DeleteUserCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(DeleteUserCommand.class);
+    private static final Logger logger = LogManager.getLogger();
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
@@ -21,11 +21,11 @@ public class DeleteUserCommand implements Command {
             logger.debug("Attempting to delete user: {}", login);
             if (userService.deleteUser(login, pass)) {
                 logger.debug("User deleted successfully: {}", login);
-                return "/index.jsp"; // Redirect to index page
+                return "/index.jsp";
             } else {
                 request.setAttribute("delete_msg", "Deletion failed. Try again.");
                 logger.debug("Deletion failed for user: {}", login);
-                return "/pages/delete_user.jsp"; // Forward to delete user page
+                return "/pages/delete_user.jsp";
             }
         } catch (ServiceException e) {
             logger.error("ServiceException during user deletion: {}", e.getMessage());

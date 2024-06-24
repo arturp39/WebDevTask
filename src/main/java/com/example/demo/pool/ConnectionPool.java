@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
@@ -18,15 +19,36 @@ public class ConnectionPool {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/java_web";
     private static final String DB_USERNAME = "postgres";
     private static final String DB_PASSWORD = "1234";
-    private static final int DEFAULT_POOL_SIZE = 16;
+    private static final int POOL_SIZE = 32;
 
-    private static volatile ConnectionPool instance;
+    private static ConnectionPool instance;
+
+    private static final String CREATE_TASK_STATUS_TYPE_IF_NOT_EXISTS = "DO $$ " +
+            "BEGIN " +
+            "IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'task_status') THEN " +
+            "CREATE TYPE task_status AS ENUM ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'); " +
+            "END IF; " +
+            "END $$;";
+
+    private static final String CREATE_USERS_TABLE_IF_NOT_EXISTS = "CREATE TABLE IF NOT EXISTS users (" +
+            "id SERIAL PRIMARY KEY," +
+            "name VARCHAR(255) NOT NULL UNIQUE," +
+            "password VARCHAR(255) NOT NULL" +
+            ");";
+
+    private static final String CREATE_TASKS_TABLE_IF_NOT_EXISTS = "CREATE TABLE IF NOT EXISTS tasks (" +
+            "id SERIAL PRIMARY KEY," +
+            "title VARCHAR(255) NOT NULL," +
+            "description TEXT," +
+            "due_date DATE," +
+            "status task_status NOT NULL" +
+            ");";
 
     static {
         try {
             DriverManager.registerDriver(new org.postgresql.Driver());
         } catch (SQLException e) {
-            logger.error("Error registering driver");
+            logger.error("Error registering driver", e);
             throw new ExceptionInInitializerError(e);
         }
     }
@@ -46,13 +68,14 @@ public class ConnectionPool {
                 logger.error("Failed to create connection", e);
             }
         }
+        initializeDatabase();
     }
 
     public static ConnectionPool getInstance() {
         if (instance == null) {
             synchronized (ConnectionPool.class) {
                 if (instance == null) {
-                    int poolSize = Integer.parseInt(System.getProperty("db.poolsize", String.valueOf(DEFAULT_POOL_SIZE)));
+                    int poolSize = Integer.parseInt(System.getProperty("db.poolsize", String.valueOf(POOL_SIZE)));
                     instance = new ConnectionPool(poolSize);
                 }
             }
@@ -76,6 +99,7 @@ public class ConnectionPool {
         }
         return connection;
     }
+
     public void releaseConnection(Connection connection) {
         if (connection != null) {
             try {
@@ -140,5 +164,18 @@ public class ConnectionPool {
         prop.put("password", DB_PASSWORD);
         prop.put("characterEncoding", "UTF-8");
         return prop;
+    }
+
+    private void initializeDatabase() {
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(CREATE_TASK_STATUS_TYPE_IF_NOT_EXISTS);
+            statement.execute(CREATE_USERS_TABLE_IF_NOT_EXISTS);
+            statement.execute(CREATE_TASKS_TABLE_IF_NOT_EXISTS);
+            logger.info("Database initialized successfully");
+        } catch (SQLException e) {
+            logger.error("Failed to initialize database", e);
+            throw new RuntimeException("Failed to initialize database", e);
+        }
     }
 }

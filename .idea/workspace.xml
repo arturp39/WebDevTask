@@ -9,28 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d6f776f-176d-4972-af9d-b4fa42a5be26" name="Changes" comment="implemented task creation, deletion, edition.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/listener/AppContextListener.java" afterDir="false" />
+    <list default="true" id="1d6f776f-176d-4972-af9d-b4fa42a5be26" name="Changes" comment="fixed register, filter">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/filter/AuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/CommandType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/Router.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/AddTaskCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/AddTaskCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/DefaultCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/DefaultCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/DeleteTaskCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/DeleteTaskCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/DeleteUserCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/DeleteUserCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/ListTasksCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/ListTasksCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LoginCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LogoutCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/RegisterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/RegisterCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/UpdateTaskDescriptionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDescriptionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/UpdateTaskDueDateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDueDateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/UpdateTaskStatusCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskStatusCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/UpdateTaskTitleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskTitleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/AddTaskCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/AddTaskCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/DeleteTaskCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/DeleteTaskCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/ListTasksCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/ListTasksCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDescriptionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDescriptionCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDueDateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskDueDateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskStatusCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskStatusCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskTitleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/task/UpdateTaskTitleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/DeleteUserCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/DeleteUserCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/LogoutCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/RegisterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/command/impl/user/RegisterCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/pool/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/pool/ConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/repository/Repository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/main.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/register.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +89,9 @@
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "postgresql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "PostgreSQL"
     ]
   }
 }]]></component>
@@ -166,7 +167,7 @@
       <workItem from="1718736405986" duration="10000" />
       <workItem from="1719072361674" duration="10821000" />
       <workItem from="1719099240585" duration="6157000" />
-      <workItem from="1719135669100" duration="45176000" />
+      <workItem from="1719135669100" duration="49345000" />
     </task>
     <task id="LOCAL-00001" summary="implemented login, register, and delete">
       <created>1719164760006</created>
@@ -196,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1719187039234</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixed deleteAccount, post-redirect-get">
+      <created>1719197881736</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719197881736</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +225,8 @@
     <MESSAGE value="implemented login, register, and delete" />
     <MESSAGE value="implemented task creation, deletion, edition" />
     <MESSAGE value="implemented task creation, deletion, edition." />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented task creation, deletion, edition." />
+    <MESSAGE value="fixed deleteAccount, post-redirect-get" />
+    <MESSAGE value="fixed register, filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed register, filter" />
   </component>
 </project>

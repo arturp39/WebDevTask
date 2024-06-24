@@ -8,21 +8,18 @@
 <body>
 
 <h1>Login</h1>
-<form action="controller" method="get">
+<form action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command" value="login">
-    Login: <input type="text" name="login" value=""/>
-    <br/>
-    Password: <input type="password" name="pass" value="">
-    <br/>
-    <input type="submit" name="sub" value="Submit"/>
-    <br/>
+    Login: <input type="text" name="login" required/><br/>
+    Password: <input type="password" name="pass" required/><br/>
+    <input type="submit" value="Submit"/><br/>
     ${login_msg}
 </form>
 
 <h1>Register</h1>
-<a href="pages/register.jsp">
-    <button type="button">Register
-    </button>
+<a href="${pageContext.request.contextPath}/pages/register.jsp">
+    <button type="button">Register</button>
 </a>
+
 </body>
 </html>

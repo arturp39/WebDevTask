@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class ListTasksCommand implements Command {
-    private final static Logger logger = LogManager.getLogger(ListTasksCommand.class);
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -22,7 +22,7 @@ public class ListTasksCommand implements Command {
             List<Task> tasks = taskService.getAllTasks();
             request.setAttribute("tasks", tasks);
             logger.debug("Tasks retrieved successfully");
-            return "/pages/list_tasks.jsp"; // Forward to list tasks page
+            return "/pages/list_tasks.jsp";
         } catch (ServiceException e) {
             logger.error("Failed to retrieve tasks", e);
             throw new CommandException("Failed to retrieve tasks", e);
